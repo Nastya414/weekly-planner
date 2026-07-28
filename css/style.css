@@ -1,1533 +1,737 @@
 /* ==========================================================
-   WEEKLY PLANNER
-   Part 1 - Layout
+   WEEKLY PLANNER - BASE STYLES
 ========================================================== */
 
-:root{
-
-    --background:#f6f7fb;
-
-    --card:#ffffff;
-
-    --border:#e4e7ee;
-
-    --shadow:0 12px 28px rgba(0,0,0,.08);
-
-    --radius:18px;
-
-    --header:#6edcc8;
-
-    --text:#262626;
-
-    --text-light:#707070;
-
-    /* --button:#4f8ef7;
-
-    --button-hover:#3978e6; */
-
-    --danger:#ef5350;
-
-    --transition:.25s ease;
-
+:root {
+    --background: #f6f7fb;
+    --card: #ffffff;
+    --border: #e4e7ee;
+    --shadow: 0 12px 28px rgba(0, 0, 0, .08);
+    --radius: 18px;
+    --header: #6edcc8;
+    --text: #262626;
+    --text-light: #707070;
+    --button: #4f8ef7;
+    --button-hover: #2b9e5f;
+    --danger: #ef5350;
+    --transition: .25s ease;
 }
 
-/* ========================= */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
-/* ========================= */
+html {
+    scroll-behavior: smooth;
+}
 
 html,
-body{
-
-    width:100%;
-    height:100%;
-
-    font-family:"Poppins",sans-serif;
-
-    background:var(--background);
-
-    color:var(--text);
-
-    overflow:hidden;
-
+body {
+    width: 100%;
+    height: 100%;
+    font-family: "Poppins", sans-serif;
+    background: var(--background);
+    color: var(--text);
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* ========================= */
-
-body{
-
-    display:flex;
-
-    flex-direction:column;
-
+body {
+    display: flex;
+    flex-direction: column;
 }
-
-/* ========================= */
-
-header{
-
-    height:58px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    padding:8px 18px;
-
-    background:white;
-
-    border-bottom:1px solid var(--border);
-
-}
-
-/* ========================= */
-
-header h1{
- 
-    font-size:1.45rem;
-
-    font-weight:600;
-
-    letter-spacing:.5px;
-
-}
-
-/* ========================= */
-
-.toolbar{
-
-    display:flex;
-
-    gap:12px;
-
-    flex-wrap:wrap;
-
-}
-
-/* ========================= */
-
-button{
-
-    cursor:pointer;
-
-    border:none;
-
-    border-radius:10px;
-
-    background:var(--button);
-
-    color:white;
-
-    padding:8px 14px;
-
-    font-size:.85rem;
-
-    border-radius:8px;
-
-    font-weight:500;
-
-    transition:var(--transition);
-
-}
-
-button:hover{
-
-    background:var(--button-hover);
-
-    transform:translateY(-2px);
-
-}
-
-.headerTools{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:6px;
-
-}
-
-.addTaskBtn{
-
-    width:22px;
-
-    height:22px;
-
-    padding:0;
-
-    border-radius:50%;
-
-    background:white;
-
-    color:#444;
-
-    font-size:18px;
-
-    font-weight:bold;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-}
-
-.addTaskBtn:hover{
-
-    background:rgb(68 78 95);
-
-    color:white;
-
-}
-
-/* ==========================================================
-   MAIN GRID
-========================================================== */
-
-.planner{
-
-    flex:1;
-
-    display:grid;
-
-    grid-template-columns:repeat(4,1fr);
-
-    grid-template-rows:repeat(2,1fr);
-
-    gap:18px;
-
-    padding:18px;
-
-    overflow:hidden;
-
-}
-
-/* ==========================================================
-   CARDS
-========================================================== */
-
-.card{
-
-    background:var(--card);
-
-    border-radius:var(--radius);
-
-    box-shadow:var(--shadow);
-
-    border:1px solid var(--border);
-
-    display:flex;
-
-    flex-direction:column;
-
-    overflow:hidden;
-
-    min-height:0;
-
-}
-
-/* ========================= */
-
-.card-header{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    padding:8px 12px;
-
-    min-height:42px;
-
-    background:var(--header);
-
-    color:white;
-
-    font-weight:600;
-
-    flex-shrink:0;
-
-}
-
-/* ========================= */
-
-.card-header span{
-
-    font-size:1rem;
-
-}
-
-/* ========================= */
-
-.colorPicker{
-
-    width:24px;
-
-    height:24px;   
-
-    border:none;
-
-    border-radius:50%;
-
-    cursor:pointer;
-
-    background:none;
-
-    padding:0;
-
-}
-
-.colorMenu{
-
-    position:relative;
-
-    width:22px;
-
-    height:22px;
-
-}
-
-.paletteBtn{
-
-    width:22px;
-
-    height:22px;
-
-    border:none;
-
-    background:transparent;
-
-    cursor:pointer;
-
-    font-size:18px;
-
-    color:#444;
-
-    padding:0;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-}
-
-.palettePopup{
-
-    display:none;
-
-    position:absolute;
-
-    top:28px;
-
-    right:0;
-
-    background:white;
-
-    padding:6px;
-
-    border-radius:10px;
-
-    box-shadow:0 5px 15px rgba(0,0,0,.15);
-
-}
-
-.palettePopup.show{
-
-    display:block;
-
-}
-
-.colorPicker{
-
-    position:absolute;
-
-    inset:0;
-
-    opacity:0;
-
-    pointer-events:none;
-
-}
-/* ==========================================================
-   GOALS / NOTES
-========================================================== */
-
-textarea{
-
-    width:100%;
-
-    flex:1;
-
-    resize:none;
-
-    border:none;
-
-    outline:none;
-
-    padding:18px;
-
-    font-family:"Poppins",sans-serif;
-
-    font-size:.95rem;
-
-    line-height:1.6;
-
-    color:var(--text);
-
-    background:white;
-
-}
-
-/* ==========================================================
-   TASK AREA
-========================================================== */
-
-.taskContainer{
-
-    flex:1;
-
-    overflow-y:auto;
-
-    padding:8px;
-
-    min-height:0;
-
-}
-
-/* ========================= */
-
-.addTask{
-
-    width:calc(100% - 24px);
-
-    margin:8px;
-
-    padding:7px;
-
-    font-size:.75rem;
-
-    border-radius:12px;
-
-}
-
-#clearWeek{
-
-    background:#8d1a18;
-
-}
-
-#clearWeek:hover{
-
-    background:#a31e1c;
-
-}
-
-/* ==========================================================
-   RESPONSIVE
-========================================================== */
-
-@media (max-width:1200px){
-
-    .planner{
-
-        grid-template-columns:repeat(2,1fr);
-
-        grid-template-rows:repeat(4,1fr);
-
-    }
-
-}
-
-@media (max-width:750px){
-
-    html,
-    body{
-
-        overflow:auto;
-
-    }
-
-    header{
-
-        flex-direction:column;
-
-        height:auto;
-
-        gap:15px;
-
-    }
-
-    .planner{
-
-        display:flex;
-
-        flex-direction:column;
-
-        height:auto;
-
-    }
-
-    .card{
-
-        min-height:420px;
-
-    }
-
-}
-
-/* ==========================================================
-   PART 2 - TASKS, BUTTONS, SCROLLBARS & ANIMATIONS
-========================================================== */
 
 /* =========================
-   TASK LIST
+   HEADER & TOOLBAR
 ========================= */
 
-.task{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    padding: 2px 4px;
-
-    margin-bottom:4px;
-
-    min-height:25px;
-
-    border-radius:8px;
-
+header {
+    height: 58px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 18px;
+    background: white;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
 }
 
-.task:hover {
+header h1 {
+    font-size: 1.45rem;
+    font-weight: 600;
+    letter-spacing: .5px;
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    background: var(--button);
+    color: white;
+    padding: 8px 16px;
+    font-size: .85rem;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+button:hover {
+    background: var(--button-hover);
     transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(0,0,0,.08);
 }
 
-/* ========================= */
+button:active {
+    transform: scale(.97);
+}
+
+.headerTools {
+    display: flex;
+    align-items: center;
+}
+
+.addTaskBtn {
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border-radius: 50%;
+    background: white;
+    color: #444;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1.5px;
+    margin-bottom: 1px;
+}
+
+.addTaskBtn:hover {
+    background: #f0f0f0;
+    color: #111;
+}
+
+.addTaskBtn, 
+.deleteTask, 
+.cross-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth rotation speed */
+    cursor: pointer;
+}
+
+
+#clearWeek {
+    background: #8d1a18;
+}
+
+#clearWeek:hover {
+    background: #a31e1c;
+}
+
+/* ==========================================================
+   MAIN GRID & CARDS
+========================================================== */
+
+.planner {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 18px;
+    padding: 18px;
+    overflow: hidden;
+    animation: pageLoad .45s ease;
+}
+
+.card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 0;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 4px 4px 12px;
+    min-height: 42px;
+    background: var(--header);
+    color: white;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.card-header span {
+    font-size: 1rem;
+}
+
+.card-header {
+    /* Adds a clean subtle border at the bottom of the header */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15); 
+    position: relative;
+}
+body:not(.dark) .card-header {
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+/* =========================
+   COLOR MENU & PICKER
+========================= */
+
+.colorMenu {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.paletteBtn {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.colorPicker {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+}
+
+.colorPicker::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+
+.colorPicker::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+/* ==========================================================
+   TASK CONTAINER & ITEMS
+========================================================== */
+
+.taskContainer {
+    flex: 1;
+    overflow-y: auto;
+    padding: 7px;
+    min-height: 0;
+    -webkit-overflow-scrolling: touch;
+}
+
+.taskContainer:empty::before {
+    content: "No tasks yet";
+    display: block;
+    text-align: center;
+    color: var(--text-light);
+    margin-top: 30px;
+    font-size: .85rem;
+}
+
+#goals .empty-state,
+#goals .empty-state,
+#goals .taskContainer:empty::before {
+    display: none !important;
+    content: none !important;
+}
+
+.task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1px 4px;
+    margin-bottom: 6px;
+    min-height: 36px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.02);
+    animation: fadeIn .25s ease;
+}
 
 .task label {
     display: flex;
     align-items: center;
-    gap: 6px;
-
+    gap: 10px;
     flex: 1;
+    cursor: pointer;
 }
 
-/* =========================
-   CUSTOM CHECKBOX
-========================= */
-
 .taskCheck {
-
     appearance: none;
     -webkit-appearance: none;
-
     width: 22px;
     height: 22px;
-
     border: 2px solid #c9c9c9;
-
     border-radius: 50%;
-
     cursor: pointer;
-
     transition: .25s;
-
     flex-shrink: 0;
-
     position: relative;
-
     background: white;
 }
 
-.taskCheck:hover {
-
-    border-color: var(--button);
-
-}
-
 .taskCheck:checked {
-
     background: #34c759;
-
     border-color: #34c759;
-
+    animation: pop .25s;
 }
 
 .taskCheck:checked::after {
-
     content: "✓";
-
     position: absolute;
-
     top: 50%;
     left: 50%;
-
-    transform: translate(-50%, -52%);
-
+    transform: translate(-50%, -55%);
     color: white;
-
     font-size: 13px;
-
     font-weight: bold;
-
 }
 
-/* =========================
-   TASK TEXT
-========================= */
-
 .taskText {
-
     flex: 1;
-
     min-height: 22px;
-
     outline: none;
-
     font-size: .95rem;
-
     line-height: 1.4;
-
     color: var(--text);
-
     word-break: break-word;
-
+    caret-color: var(--button);
 }
 
 .taskText:empty::before {
-
     content: "New Task";
-
     color: #a8a8a8;
-
 }
 
-/* Completed */
-
 .task.completed {
-
     background: #f4f8f5;
-
 }
 
 .task.completed .taskText {
-
     text-decoration: line-through;
-
     opacity: .55;
-
 }
 
-/* =========================
-   DELETE BUTTON
-========================= */
-
 .deleteTask {
-
     width: 32px;
     height: 32px;
-
     padding: 0;
-
     border-radius: 50%;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     background: transparent;
-
     color: #b0b0b0;
-
-    font-size: 15px;
-
+    font-size: 14px;
     transition: .2s;
-
 }
 
 .deleteTask:hover {
-
-    background: #ffebeb;
-
+    background: #532D2D;
     color: var(--danger);
-
-    transform: rotate(90deg);
-
-}
-
-/* =========================
-   ADD TASK BUTTON
-========================= */
-
-.addTask {
-
-    background: #eef4ff;
-
-    color: var(--button);
-
-    border: 2px dashed #b9d3ff;
-
-    font-weight: 600;
-
-}
-
-.addTask:hover {
-
-    background: var(--button);
-
-    color: white;
-
-    border-color: var(--button);
-
-}ddTask
-
-/* =========================
-   TOOLBAR BUTTONS
-========================= */
-
-.toolbar button {
-
-    min-width: 110px;
-
-}
-
-#themeToggle {
-
-    background: #444;
-
-}
-
-#themeToggle:hover {
-
-    background: #222;
-
-}
-
-.theme-switch{
-
-    width:60px;
-    height:30px;
-
-    border:none;
-
-    border-radius:999px;
-
-    position:relative;
-
-    cursor:pointer;
-
-    overflow:hidden;
-
-    background:#111;
-
-    color:white;
-
-    font-size:20px;
-
-    font-weight:700;
-
-    letter-spacing:.5px;
-
-    transition:.45s ease;
-
-}
-
-.theme-switch .switch-thumb{
-
-    position:absolute;
-
-    left:4px;
-    top:4px;
-
-    width:20px;
-    height:20px;
-
-    background:white;
-
-    border-radius:50%;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    font-size:14px;
-
-    transition:.45s cubic-bezier(.4,0,.2,1);
-
-    box-shadow:0 5px 15px rgba(0,0,0,.2);
-
-}
-
-.theme-switch #themeText{
-
-    position:absolute;
-
-    left:2px;
-
-    top:50%;
-
-    transform:translateY(-50%);
-
-    transition:.35s;
-
-}
-
-#themeIcon{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    width:100%;
-    height:100%;
-
-    transform:translate(0.8px,-0.6px);
-}
-
-/* ---------- LIGHT MODE ---------- */
-
-body:not(.dark) .theme-switch{
-
-    background:#ececec;
-
-    color:#111;
-
-}
-body:not(.dark) #themeToggle{
-
-    background:rgb(237 225 189);
-
-}
-
-body:not(.dark) .theme-switch .switch-thumb{
-
-    transform:translateX(30px);
-
-}
-
-/* ---------- DARK MODE ---------- */
-
-body.dark .theme-switch{
-
-    background:#111;
-
-    color:white;
-
-}
-
-body.dark .theme-switch .switch-thumb{
-
-    transform:translateX(0);
-
-}
-
-/* .theme-switch:hover{
-
-    transform:scale(1.02);
-
-} */
-
-/* =========================
-   TEXTAREA
-========================= */
-
-textarea::placeholder {
-
-    color: #9f9f9f;
-
-}
-
-textarea:focus {
-
-    background: #fcfcfc;
-
-}
-
-/* =========================
-   CARD HEADER
-========================= */
-
-.card-header {
-
-    transition: .25s;
-
-}
-
-.card:hover .card-header {
-
-    filter: brightness(.95);
-
-}
-
-/* =========================
-   COLOR PICKER
-========================= */
-
-.colorPicker {
-
-    transition: .2s;
-    overflow: hidden;
-
-}
-
-.colorPicker:hover {
-
-    transform: scale(1.12);
-
-}
-
-/* =========================
-   SCROLLBAR
-========================= */
-
-.taskContainer::-webkit-scrollbar,
-textarea::-webkit-scrollbar {
-
-    width: 8px;
-
-}
-
-.taskContainer::-webkit-scrollbar-track,
-textarea::-webkit-scrollbar-track {
-
-    background: transparent;
-
-}
-
-.taskContainer::-webkit-scrollbar-thumb,
-textarea::-webkit-scrollbar-thumb {
-
-    background: #d2d2d2;
-
-    border-radius: 50px;
-
-}
-
-.taskContainer::-webkit-scrollbar-thumb:hover,
-textarea::-webkit-scrollbar-thumb:hover {
-
-    background: #ababab;
-
-}
-
-/* Firefox */
-
-.taskContainer,
-textarea {
-
-    scrollbar-width: thin;
-
-    scrollbar-color: #bfbfbf transparent;
-
-}
-
-/* =========================
-   DRAG & DROP
-========================= */
-
-.task.dragging {
-
-    opacity: .45;
-
-    transform: scale(.98);
-
-}
-
-.task.drag-over {
-
-    border: 2px dashed var(--button);
-
-}
-
-/* =========================
-   FOCUS EFFECTS
-========================= */
-
-/* button:focus,
-textarea:focus,
-.taskText:focus {
-
-    outline: 2px solid rgba(79,142,247,.25);
-
-    outline-offset: 2px;
-
-} */
-
-/* =========================
-   ANIMATIONS
-========================= */
-
-@keyframes fadeIn {
-
-    from {
-
-        opacity: 0;
-        transform: translateY(10px);
-
-    }
-
-    to {
-
-        opacity: 1;
-        transform: translateY(0);
-
-    }
-
-}
-
-.task {
-
-    animation: fadeIn .25s ease;
-
-}
-
-@keyframes pop {
-
-    0% {
-
-        transform: scale(.7);
-
-    }
-
-    70% {
-
-        transform: scale(1.15);
-
-    }
-
-    100% {
-
-        transform: scale(1);
-
-    }
-
-}
-
-.taskCheck:checked {
-
-    animation: pop .25s;
-
-}
-
-/* =========================
-   SMOOTH TRANSITIONS
-========================= */
-
-.card,
-button,
-.task,
-textarea,
-.taskText,
-.card-header,
-.colorPicker {
-
-    transition: var(--transition);
-
 }
 
 /* ==========================================================
-   PART 3 - DARK MODE, PRINT, RESPONSIVE POLISH
+   NOTES TEXTAREA
 ========================================================== */
 
-/* =========================
-   DARK MODE
-========================= */
-
-body.dark {
-
-    --background:#15171c;
-
-    --card:#1e2128;
-
-    --border:#323640;
-
-    --text:#f5f5f5;
-
-    --text-light:#bbbbbb;
-
-    --shadow:0 12px 28px rgba(0,0,0,.45);
-
+textarea {
+    width: 100%;
+    flex: 1;
+    resize: none;
+    border: none;
+    outline: none;
+    padding: 14px;
+    font-family: "Poppins", sans-serif;
+    font-size: .95rem;
+    line-height: 1.6;
+    color: var(--text);
+    background: white;
+    caret-color: var(--button);
 }
 
-body.dark header,
-body.dark footer{
-
-    background:#1a1d24;
-
-    border-color:#323640;
-
+textarea::placeholder {
+    color: #9f9f9f;
 }
 
-body.dark textarea{
+/* ==========================================================
+   THEME TOGGLE SWITCH
+========================================================== */
 
-    background:#1e2128;
-
-    color:white;
-
+.theme-switch {
+    width: 60px;
+    height: 32px;
+    border: none;
+    border-radius: 999px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    background: #3f3f3c;
+    padding: 0;
 }
 
-body.dark textarea::placeholder{
-
-    color:#8b8b8b;
-
+.theme-switch .switch-thumb {
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .35s cubic-bezier(.4, 0, .2, 1);
 }
 
-body.dark .task{
-
-    background:#2a2e37;
-
-    border-color:#40444f;
-
+#themeIcon {
+    font-size: 13px;
+    transform:translate(0.7px,-0.6px);
 }
 
-body.dark .task:hover{
-
-    background:#333844;
-
+body:not(.dark) .theme-switch {
+    background: #ececec;
 }
 
-body.dark .task.completed{
-
-    background:#29392f;
-
+body:not(.dark) .theme-switch .switch-thumb {
+    transform: translateX(28px);
 }
 
-body.dark .taskText{
-
-    color:white;
-
+body.dark .theme-switch .switch-thumb {
+    transform: translateX(0);
 }
 
-body.dark .deleteTask{
+body:not(.dark) .deleteTask:hover{
 
-    color:#c8c8c8;
-
-}
-
-body.dark .deleteTask:hover{
-
-    background:#532d2d;
+    background:#ffebeb;
 
     color:#ff7272;
 
 }
 
-body.dark .addTask{
+/* ==========================================================
+   DARK MODE OVERRIDES
+========================================================== */
 
-    background:#273550;
-
-    color:#7fb4ff;
-
-    border-color:#4b74b8;
-
+body.dark {
+    --background: #15171c;
+    --card: #1e2128;
+    --border: #323640;
+    --text: #f5f5f5;
+    --text-light: #bbbbbb;
+    --shadow: 0 12px 28px rgba(0, 0, 0, .45);
 }
 
-body.dark .addTask:hover{
-
-    background:#4f8ef7;
-
-    color:white;
-
+body.dark header {
+    background: #1a1d24;
+    border-color: #323640;
 }
 
-body.dark button{
-
-    box-shadow:none;
-
+body.dark textarea {
+    background: #1e2128;
+    color: white;
 }
 
-/* =========================
-   GLASS HOVER
-========================= */
-
-.card{
-
-    backdrop-filter:blur(8px);
-
+body.dark .task {
+    background: #2a2e37;
 }
 
-.card:hover{
-
-    transform:translateY(-4px);
-
-    box-shadow:0 18px 38px rgba(0,0,0,.12);
-
+body.dark .task.completed {
+    background: #29392f;
 }
 
-body.dark .card:hover{
-
-    box-shadow:0 18px 38px rgba(0,0,0,.55);
-
+body.dark .taskText {
+    color: white;
 }
 
-/* =========================
-   HEADER SHADOW
-========================= */
+/* ==========================================================
+   ANIMATIONS
+========================================================== */
 
-.card-header{
-
-    position:relative;
-
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.card-header::after{
-
-    content:"";
-
-    position:absolute;
-
-    left:0;
-
-    bottom:0;
-
-    width:100%;
-
-    height:1px;
-
-    background:rgba(255,255,255,.25);
-
+@keyframes pageLoad {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* =========================
-   BUTTON ANIMATION
-========================= */
-
-button:active{
-
-    transform:scale(.97);
-
+@keyframes pop {
+    0% { transform: scale(.7); }
+    70% { transform: scale(1.15); }
+    100% { transform: scale(1); }
 }
 
-/* =========================
-   TEXT SELECTION
-========================= */
-
-::selection{
-
-    background:#4f8ef7;
-
-    color:white;
-
+/* Header branding wrapper */
+header .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-/* =========================
-   PLACEHOLDER
-========================= */
-
-textarea,
-.taskText{
-
-    caret-color:#4f8ef7;
-
+.header-logo {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
 }
 
-/* =========================
-   INPUT COLOR PICKER
-========================= */
+/* ==========================================================
+   DESKTOP & TABLET: SLIDER SWITCH STYLE
+========================================================== */
 
-.colorPicker::-webkit-color-swatch{
-
-    border:none;
-
-    border-radius:50%;
-
+.theme-switch {
+    width: 60px;
+    height: 32px;
+    border: none;
+    border-radius: 999px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    background: #3f3f3c;
+    padding: 0;
 }
 
-.colorPicker::-webkit-color-swatch-wrapper{
-
-    padding:0;
-
+.theme-switch .switch-thumb {
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.35s cubic-bezier(.4, 0, .2, 1);
 }
 
-.colorPicker{
-
-    overflow:hidden;
-
+#themeIcon {
+    font-size: 13px;
 }
 
-/* =========================
-   NICE SCROLLING
-========================= */
-
-html{
-
-    scroll-behavior:smooth;
-
+/* Slider state positioning (Desktop/Tablet) */
+body:not(.dark) .theme-switch {
+    background: #ececec;
 }
 
-/* =========================
-   PRINT MODE
-========================= */
+body:not(.dark) .theme-switch .switch-thumb {
+    transform: translateX(28px);
+}
 
-@media print{
+body.dark .theme-switch .switch-thumb {
+    transform: translateX(0);
+}
+/* ==========================================================
+   RESPONSIVE SCROLLING FOR TABLETS & PHONES
+========================================================== */
+@media (hover: hover) {
+    .deleteTask:hover, 
+    .cross-icon:hover {
+        transform: rotate(90deg); /* Use 45deg, 90deg, or 180deg depending on preferred feel */
+    }
+}
 
-    body{
-
-        background:white;
-
-        overflow:visible;
-
+/* Tablet Optimization (769px to 1100px) */
+@media (max-width: 1100px) {
+    html, body {
+        overflow-x: hidden;
+        overflow-y: auto; /* Enables smooth vertical page scrolling */
+        height: auto;     /* Allows body to expand beyond viewport height */
     }
 
-    header{
-
-        box-shadow:none;
-
+    .planner {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns, 4 rows */
+        grid-template-rows: auto;               /* Card height adjusts dynamically */
+        gap: 16px;
+        padding: 16px;
+        overflow: visible;                      /* Prevents clipping outer boxes */
+        height: auto;
     }
 
-    footer{
-
-        display:none;
-
+    .card {
+        min-height: 260px; /* Gives each box enough height to display tasks */
     }
-
-    .toolbar{
-
-        display:none;
-
-    }
-
-    .planner{
-
-        display:grid;
-
-        grid-template-columns:repeat(2,1fr);
-
-        grid-auto-rows:auto;
-
-        gap:15px;
-
-        height:auto;
-
-    }
-
-    .card{
-
-        page-break-inside:avoid;
-
-        box-shadow:none;
-
-        border:1px solid #999;
-
-    }
-
-    .taskContainer{
-
-        overflow:visible;
-
-    }
-
 }
 
-/* =========================
-   LARGE MONITORS
-========================= */
-
-@media (min-width:1800px){
-
-    body{
-
-        font-size:18px;
-
+/* Mobile Phone Optimization (768px and smaller) */
+@media (max-width: 768px) {
+    html, body {
+        overflow-x: hidden;
+        overflow-y: auto; /* Enables full page scrolling */
+        height: auto;
     }
-
-    .planner{
-
-        gap:24px;
-
-        padding:24px;
-
+        .header-logo {
+        width: 24px;
+        height: 24px;
     }
-
-}
-
-/* =========================
-   TABLETS
-========================= */
-
-@media (max-width:1000px){
-
-    header{
-
-        padding:15px;
-
-    }
-
-    .toolbar{
-
-        gap:8px;
-
-    }
-
-    button{
-
-        padding:10px 14px;
-
-        font-size:.9rem;
-
-    }
-
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width:700px){
-
-    .toolbar{
-
-        width:100%;
-
-        display:grid;
-
-        grid-template-columns:repeat(2,1fr);
-
-    }
-
-    .toolbar button{
-
-        width:100%;
-
-    }
-
-    .planner{
-
-        padding:12px;
-
-        gap:12px;
-
-    }
-    .card{
-
-        min-height:380px;
-
-    }
-
-}
-
-/* =========================
-   EXTRA SMALL PHONES
-========================= */
-
-@media (max-width:450px){
-
     header h1{
-
-        font-size:1.5rem;
-
+        font-size: 1.1rem;
     }
 
-    .toolbar{
-
-        grid-template-columns:1fr;
-
+    /* Transform slider frame into a round icon button */
+    .theme-switch {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #eef1f6;
+        border: 1px solid var(--border);
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
-}
-
-/* =========================
-   EMPTY TASK MESSAGE
-========================= */
-
-.taskContainer:empty::before{
-
-    content:"No tasks yet";
-
-    display:block;
-
-    text-align:center;
-
-    color:var(--text-light);
-
-    margin-top:40px;
-
-    font-size:.9rem;
-
-}
-
-/* =========================
-   FADE-IN PAGE
-========================= */
-
-@keyframes pageLoad{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(20px);
-
+    /* Disable slider movement and center the thumb icon */
+    .theme-switch .switch-thumb {
+        position: static;
+        width: auto;
+        height: auto;
+        background: transparent;
+        transform: none !important; /* Overrides slider offset */
     }
 
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
+    #themeIcon {
+        font-size: 1.15rem;
+        padding-left: 0.5px;
+        padding-bottom: 1px;
     }
 
+    /* Mobile dark mode button background */
+    body.dark .theme-switch {
+        background: #2a2e39;
+        border-color: #3f4452;
+    }
+
+    .planner {
+        display: flex;
+        flex-direction: column; /* Stacks all 8 boxes vertically in 1 column */
+        gap: 14px;
+        padding: 14px;
+        overflow: visible;
+        height: auto;
+    }
+
+    .card {
+        min-height: 220px;
+        border-radius: 14px;
+    }
+
+    .taskContainer {
+        max-height: 250px; /* Scrolls internally if a single box has many tasks */
+    }
 }
 
-.planner{
+/* ==========================================================
+   DISABLE ALL HOVER EFFECTS ON PHONES & TABLETS
+========================================================== */
 
-    animation:pageLoad .45s ease;
+/* Target touch devices where hover isn't supported or natural */
+@media (hover: none), (max-width: 1024px) {
+    
+    /* Disable transform shifts, scaling, and hover shadows on cards & tasks */
+    .card:hover,
+    .task:hover,
+    .theme-switch:hover,
+    .addTaskBtn:hover,
+    .paletteBtn:hover,
+    #clearWeek:hover,
+    button:hover {
+        transform: none !important;
+        box-shadow: none !important;
+        filter: none !important;
+    }
+    
 
+    /* Keep backgrounds stable on hover for interactive elements */
+    .task:hover {
+        background-color: var(--task-bg, inherit) !important;
+    }
+
+    /* button:hover,
+    .addTaskBtn:hover,
+    .paletteBtn:hover {
+        background-color: inherit;
+        opacity: 1;
+    } */
+
+    /* Disable hover state background highlights on table rows/items */
+    tr:hover,
+    td:hover,
+    .taskContainer:hover {
+        background-color: transparent !important;
+    }
 }
 
-/* =========================
-   CARD HEADER TRANSITIONS
-========================= */
+/* ==========================================================
+   2-COLUMN GRID AT 768px (TABLETS & PHONES)
+========================================================== */
 
-.card-header,
-button,
-.task,
-textarea,
-.taskText,
-.colorPicker{
+@media (max-width: 768px) {
+    /* Main container holding the daily cards */
+    .planner-grid, 
+    .cards-container, 
+    main {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important; /* Forces exactly 2 cards per row */
+        gap: 12px !important;
+        padding: 10px !important;
+    }
 
-    transition:all .25s ease;
+    /* Full-width cards (like Weekly Goals or Notes) can span both columns if needed */
+    .card.full-width {
+        grid-column: span 2;
+    }
 
+    /* Adjust card margins so grid handles spacing cleanly */
+    .card {
+        width: 100% !important;
+        margin: 0 !important;
+    }
 }
 
-/* =========================
-   DISABLE BLUE TAP HIGHLIGHT
-========================= */
-
-*{
-
-    -webkit-tap-highlight-color:transparent;
-
-}
-
-/* =========================
-   BETTER TEXT RENDERING
-========================= */
-
-body{
-
-    -webkit-font-smoothing:antialiased;
-
-    -moz-osx-font-smoothing:grayscale;
-
-    text-rendering:optimizeLegibility;
-
+/* Optional: Switch to 1 column on extremely small screens under 480px */
+@media (max-width: 480px) {
+    .planner-grid, 
+    .cards-container, 
+    main {
+        grid-template-columns: 1fr !important; /* Single column for very narrow phones */
+    }
 }

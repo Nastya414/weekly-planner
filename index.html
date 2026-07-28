@@ -3,372 +3,169 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>Planner</title>
+    <title>Weekly Planner</title>
     <link rel="icon" type="image/png" href="/icons/calendar.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/icons/calendar.png">
     <link rel="stylesheet" href="css/style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
     <header>
-
-        <h1>Weekly Planner</h1>
-
-        <div class="toolbar">
-
-            <!-- <button id="themeToggle">
-                🌙 Dark Mode
-            </button> -->
-            <button id="themeToggle" class="theme-switch">
-
-                <div class="switch-thumb">
-
-                    <span id="themeIcon">🌙</span>
-
-                </div>
-
-            </button>
-            <button id="clearWeek">
-                 Clear
-            </button>
+        <div class="brand">
+            <h1>Weekly Planner</h1>
         </div>
 
+        <div class="toolbar">
+            <!-- Theme toggle element -->
+            <button id="themeToggle" class="theme-switch" aria-label="Toggle Theme">
+                <div class="switch-thumb">
+                    <span id="themeIcon">🌙</span>
+                </div>
+            </button>
+            <button id="clearWeek">Clear</button>
+        </div>
     </header>
 
     <main class="planner">
 
         <!-- Weekly Goals -->
-
         <section class="card" id="goals">
-
             <div class="card-header">
-
                 <span>Weekly Goals</span>
-
                 <div class="headerTools">
-
-                    <button
-                        class="addTaskBtn"
-                        data-card="goals">
-                        +
-                    </button>
-
+                    <button class="addTaskBtn" data-card="goals" aria-label="Add Task">+</button>
                     <div class="colorMenu">
-
-                        <button
-                            class="paletteBtn"
-                            type="button"
-                            title="Choose header color">
-                            ⋮
-                        </button>
-
-                        <input
-                            class="colorPicker"
-                            type="color"
-                            data-card="goals"
-                            value="#4b567c">
-
+                        <button class="paletteBtn" type="button" title="Choose header color">⋮</button>
+                        <input class="colorPicker" type="color" data-card="goals" value="#4b567c">
                     </div>
-
                 </div>
-
             </div>
-
-            <div
-                id="weeklyGoals"
-                class="taskContainer">
-            </div>
-
+            <div id="weeklyGoals" class="taskContainer"></div>
         </section>
 
         <!-- Monday -->
-
         <section class="card" id="monday">
-
             <div class="card-header">
-
                 <span>Monday</span>
-
                 <div class="headerTools">
-
-                    <button class="addTaskBtn" data-card="monday">+</button>
-
+                    <button class="addTaskBtn" data-card="monday" aria-label="Add Task">+</button>
                     <div class="colorMenu">
-
-                    <button
-                        class="paletteBtn"
-                        type="button"
-                        title="Choose header color">
-                        ⋮
-                    </button>
-
-                    <input
-                        class="colorPicker"
-                        type="color"
-                        data-card="monday"
-                        value="#36544f">
-
-                </div>
-
+                        <button class="paletteBtn" type="button" title="Choose header color">⋮</button>
+                        <input class="colorPicker" type="color" data-card="monday" value="#36544f">
+                    </div>
                 </div>
             </div>
-        <div class="taskContainer"></div>
-
+            <div class="taskContainer"></div>
         </section>
 
         <!-- Tuesday -->
-
         <section class="card" id="tuesday">
-
             <div class="card-header">
-
                 <span>Tuesday</span>
-
                 <div class="headerTools">
-
-                    <button class="addTaskBtn">+</button>
-
-                <div class="colorMenu">
-
-                    <button
-                        class="paletteBtn"
-                        type="button"
-                        title="Choose header color">
-                        ⋮
-                    </button>
-
-                    <input
-                        class="colorPicker"
-                        type="color"
-                        data-card="tuesday"
-                        value="#366d63">
-
+                    <button class="addTaskBtn" data-card="tuesday" aria-label="Add Task">+</button>
+                    <div class="colorMenu">
+                        <button class="paletteBtn" type="button" title="Choose header color">⋮</button>
+                        <input class="colorPicker" type="color" data-card="tuesday" value="#366d63">
+                    </div>
                 </div>
-
-                </div>
-
             </div>
             <div class="taskContainer"></div>
         </section>
 
         <!-- Wednesday -->
-
         <section class="card" id="wednesday">
-
             <div class="card-header">
-
                 <span>Wednesday</span>
-
                 <div class="headerTools">
-
-                    <button class="addTaskBtn">+</button>
-
-                <div class="colorMenu">
-
-                    <button
-                        class="paletteBtn"
-                        type="button"
-                        title="Choose header color">
-                        ⋮
-                    </button>
-
-                    <input
-                        class="colorPicker"
-                        type="color"
-                        data-card="wednesday"
-                        value="#8c5dbb">
-
+                    <button class="addTaskBtn" data-card="wednesday" aria-label="Add Task">+</button>
+                    <div class="colorMenu">
+                        <button class="paletteBtn" type="button" title="Choose header color">⋮</button>
+                        <input class="colorPicker" type="color" data-card="wednesday" value="#8c5dbb">
+                    </div>
                 </div>
-
-                </div>
-
             </div>
             <div class="taskContainer"></div>
-
         </section>
 
         <!-- Thursday -->
-
         <section class="card" id="thursday">
-
             <div class="card-header">
-
                 <span>Thursday</span>
-
                 <div class="headerTools">
-
-                    <button class="addTaskBtn">+</button>
-
-                <div class="colorMenu">
-
-                    <button
-                        class="paletteBtn"
-                        type="button"
-                        title="Choose header color">
-                        ⋮
-                    </button>
-
-                    <input
-                        class="colorPicker"
-                        type="color"
-                        data-card="thursday"
-                        value="#284330">
-
+                    <button class="addTaskBtn" data-card="thursday" aria-label="Add Task">+</button>
+                    <div class="colorMenu">
+                        <button class="paletteBtn" type="button" title="Choose header color">⋮</button>
+                        <input class="colorPicker" type="color" data-card="thursday" value="#284330">
+                    </div>
                 </div>
-
-                </div>
-
             </div>
             <div class="taskContainer"></div>
-
         </section>
 
         <!-- Friday -->
-
         <section class="card" id="friday">
-
             <div class="card-header">
-
                 <span>Friday</span>
-
                 <div class="headerTools">
-
-                    <button class="addTaskBtn">+</button>
-                <div class="colorMenu">
-
-                    <button
-                        class="paletteBtn"
-                        type="button"
-                        title="Choose header color">
-                        ⋮
-                    </button>
-
-                    <input
-                        class="colorPicker"
-                        type="color"
-                        data-card="friday"
-                        value="#154656">
-
+                    <button class="addTaskBtn" data-card="friday" aria-label="Add Task">+</button>
+                    <div class="colorMenu">
+                        <button class="paletteBtn" type="button" title="Choose header color">⋮</button>
+                        <input class="colorPicker" type="color" data-card="friday" value="#154656">
+                    </div>
                 </div>
-
-                </div>
-
             </div>
             <div class="taskContainer"></div>
-
         </section>
 
         <!-- Weekend -->
-
         <section class="card" id="weekend">
-
             <div class="card-header">
-
                 <span>Weekend</span>
-
                 <div class="headerTools">
-
-                    <button class="addTaskBtn">+</button>
-
-                <div class="colorMenu">
-
-                    <button
-                        class="paletteBtn"
-                        type="button"
-                        title="Choose header color">
-                        ⋮
-                    </button>
-
-                    <input
-                        class="colorPicker"
-                        type="color"
-                        data-card="weekend"
-                        value="#707070">
-
+                    <button class="addTaskBtn" data-card="weekend" aria-label="Add Task">+</button>
+                    <div class="colorMenu">
+                        <button class="paletteBtn" type="button" title="Choose header color">⋮</button>
+                        <input class="colorPicker" type="color" data-card="weekend" value="#707070">
+                    </div>
                 </div>
-
-                </div>
-
             </div>
             <div class="taskContainer"></div>
-
         </section>
 
         <!-- Notes -->
-
         <section class="card" id="notes">
-
             <div class="card-header">
-
                 <span>Notes</span>
-
-            <div class="colorMenu">
-
-                <button
-                    class="paletteBtn"
-                    type="button"
-                    title="Choose header color">
-                    ⋮
-                </button>
-
-                <input
-                    class="colorPicker"
-                    type="color"
-                    data-card="notes"
-                    value="#a49146">
-
+                <div class="colorMenu">
+                    <button class="paletteBtn" type="button" title="Choose header color">⋮</button>
+                    <input class="colorPicker" type="color" data-card="notes" value="#8e7e3e">
+                </div>
             </div>
-
-            </div>
-
-            <textarea
-                id="notes"
-                placeholder="Write notes here..."></textarea>
-
+            <textarea id="notes" placeholder="Write notes here..."></textarea>
         </section>
 
     </main>
 
     <!-- Template for Tasks -->
-
     <template id="taskTemplate">
-
         <div class="task" draggable="true">
-
             <label>
-
-                <input
-                    type="checkbox"
-                    class="taskCheck">
-
-                <span
-                    class="taskText"
-                    contenteditable="true">
-                </span>
-
+                <input type="checkbox" class="taskCheck">
+                <span class="taskText" contenteditable="true"></span>
             </label>
-
-            <button
-                class="deleteTask"
-                title="Delete Task">
-                ✖
-            </button>
-
+            <button class="deleteTask" title="Delete Task" aria-label="Delete Task">✖</button>
         </div>
-
     </template>
 
     <script src="js/app.js"></script>
-
 </body>
 
 </html>
