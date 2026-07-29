@@ -155,15 +155,20 @@
     </main>
 
     <!-- Template for Tasks -->
-    <template id="taskTemplate">
-        <div class="task" draggable="true">
-            <label>
-                <input type="checkbox" class="taskCheck">
-                <span class="taskText" contenteditable="true"></span>
-            </label>
-            <button class="deleteTask" title="Delete Task" aria-label="Delete Task">✖</button>
-        </div>
-    </template>
+<template id="taskTemplate">
+    <div class="task" draggable="true">
+        <!-- Separate label for ONLY the checkbox -->
+        <label class="checkbox-wrapper">
+            <input type="checkbox" class="taskCheck">
+        </label>
+        
+        <!-- Editable text sits OUTSIDE the label -->
+        <span class="taskText" contenteditable="true"></span>
+
+        <!-- Delete button -->
+        <button class="deleteTask" title="Delete Task" aria-label="Delete Task">✖</button>
+    </div>
+</template>
 
     <script src="js/app.js"></script>
 </body>

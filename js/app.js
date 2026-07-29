@@ -93,39 +93,61 @@ function createTask(day, text = "", completed = false) {
         task.classList.add("completed");
     }
 
-    /* ----------------------- */
-
+    /* --------------------------------------------------
+       1. CHECKBOX TOGGLE
+    -------------------------------------------------- */
     checkbox.addEventListener("change", () => {
         task.classList.toggle("completed", checkbox.checked);
-        updateStorage(day);
+        savePlanner();
     });
 
-    /* ----------------------- */
-
+    /* --------------------------------------------------
+       2. EDITABLE TEXT INPUT & AUTO-SAVE
+    -------------------------------------------------- */
     taskText.addEventListener("input", () => {
-        updateStorage(day);
+        // Save state on input without re-rendering the element 
+        // to preserve exact cursor position
+        savePlanner();
     });
 
-    /* ----------------------- */
-
-    taskText.addEventListener("keydown", e => {
+    /* Deactivate edit mode when pressing Enter or Escape */
+    taskText.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
             e.preventDefault();
-            createTask(day);
+            taskText.blur(); // Unfocus text editing
+            createTask(day); // Create next task
+        } else if (e.key === "Escape") {
+            taskText.blur();
         }
     });
 
-    /* ----------------------- */
-
-    deleteButton.addEventListener("click", () => {
-        task.remove();
-        updateStorage(day);
+    /* --------------------------------------------------
+       3. CLICK TASK ROW TO DEACTIVATE EDITING
+    -------------------------------------------------- */
+    task.addEventListener("click", (e) => {
+        // If clicking inside the task row BUT outside the text input, blur/unfocus the text
+        if (e.target !== taskText) {
+            taskText.blur();
+        }
     });
 
-    /* ----------------------- */
+    /* --------------------------------------------------
+       4. DELETE TASK
+    -------------------------------------------------- */
+    deleteButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+        task.remove();
+        savePlanner();
+    });
 
     container.appendChild(task);
+    savePlanner();
 
+
+/* --------------------------------------------------
+   5. GLOBAL CONTAINER CLICK DEACTIVATION
+   Clicking empty space in task box un-focuses editing
+-------------------------------------------------- */
     // FIX: Auto-scroll container to bottom and focus without snapping window top
     container.scrollTo({
         top: container.scrollHeight,
@@ -139,6 +161,14 @@ function createTask(day, text = "", completed = false) {
     updateStorage(day);
 }
 
+document.addEventListener("click", (e) => {
+    // If click is inside a taskContainer or card, but not on editable text, blur active element
+    if (e.target.classList.contains("taskContainer") || e.target.classList.contains("card")) {
+        if (document.activeElement && document.activeElement.classList.contains("taskText")) {
+            document.activeElement.blur();
+        }
+    }
+});
 /* ========================================= */
 
 function updateStorage(day) {
@@ -526,13 +556,6 @@ document.addEventListener("keydown", e => {
     if (e.ctrlKey && e.key.toLowerCase() === "s") {
         e.preventDefault();
         savePlanner();
-        showToast("Planner Saved");
-    }
-
-    /* Ctrl + P -> Print */
-    if (e.ctrlKey && e.key.toLowerCase() === "p") {
-        e.preventDefault();
-        window.print();
     }
 
     /* Ctrl + D -> Dark Mode */
