@@ -369,6 +369,9 @@ body:not(.dark) .card-header {
     white-space: pre-wrap;
     caret-color: var(--button);
     text-transform: capitalize;
+    touch-action: manipulation;
+    -webkit-user-select: text;
+    user-select: text;
 }
 
 .taskText:empty::before {

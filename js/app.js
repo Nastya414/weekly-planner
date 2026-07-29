@@ -203,6 +203,7 @@ function createTask(day, text = "", completed = false) {
         top: container.scrollHeight,
         behavior: "smooth"
     });
+    taskText.focus();
 
     setTimeout(() => {
         taskText.focus({ preventScroll: true });
