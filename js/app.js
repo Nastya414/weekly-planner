@@ -73,6 +73,38 @@ function initializeTextAreas() {
     });
 }
 
+const notesArea = document.getElementById("notesArea");
+
+if (notesArea) {
+    // 1. Capitalize automatically as the user types
+    notesArea.addEventListener("input", () => {
+        if (notesArea.value.length > 0) {
+            // Capitalizes the very first letter while preserving cursor position
+            const start = notesArea.selectionStart;
+            const end = notesArea.selectionEnd;
+
+            notesArea.value = notesArea.value.charAt(0).toUpperCase() + notesArea.value.slice(1);
+
+            notesArea.setSelectionRange(start, end);
+        }
+        savePlanner();
+    });
+
+    // 2. Blur / deactivate edit when pressing Escape
+    notesArea.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            notesArea.blur();
+        }
+    });
+}
+
+// 3. Deactivate notes textarea when clicking outside of it
+document.addEventListener("click", (e) => {
+    if (notesArea && e.target !== notesArea && document.activeElement === notesArea) {
+        notesArea.blur();
+    }
+});
+
 /* ========================================= */
 
 function createTask(day, text = "", completed = false) {

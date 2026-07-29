@@ -335,6 +335,13 @@ body:not(.dark) .card-header {
     caret-color: var(--button);
 }
 
+.taskText::first-letter {
+    text-transform: uppercase;
+}
+#notesArea::first-letter,
+textarea::first-letter {
+    text-transform: uppercase;
+}
 .taskText:empty::before {
     content: "New Task";
     color: #a8a8a8;
