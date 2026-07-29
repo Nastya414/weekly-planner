@@ -368,10 +368,12 @@ body:not(.dark) .card-header {
     word-break: break-word;
     white-space: pre-wrap;
     caret-color: var(--button);
-    text-transform: capitalize;
     touch-action: manipulation;
     -webkit-user-select: text;
     user-select: text;
+}
+.taskText::first-letter {
+    text-transform: uppercase;
 }
 
 .taskText:empty::before {

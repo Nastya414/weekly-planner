@@ -81,9 +81,7 @@ function initializeTextAreas() {
         savePlanner();
     });
 }
-
 const notesArea = document.getElementById("notesArea");
-
 if (notesArea) {
     // 1. Capitalize automatically as the user types
     notesArea.addEventListener("input", () => {
