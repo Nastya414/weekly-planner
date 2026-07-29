@@ -372,10 +372,12 @@ body:not(.dark) .card-header {
     -webkit-user-select: text;
     user-select: text;
 }
-.taskText::first-letter {
-    text-transform: uppercase;
-}
 
+@media (hover: hover) and (pointer: fine) {
+    .taskText::first-letter {
+        text-transform: uppercase;
+    }
+}
 .taskText:empty::before {
     content: "New Task";
     color: #a8a8a8;
