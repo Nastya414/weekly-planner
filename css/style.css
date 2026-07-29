@@ -99,27 +99,48 @@ button:active {
 }
 
 .addTaskBtn {
-    width: 22px;
-    height: 22px;
+    width: 26px;
+    height: 26px;
     padding: 0;
+    margin: 0;
+    border: none;
     border-radius: 50%;
-    background: white;
-    color: #444;
-    font-size: 18px;
-    font-weight: bold;
-    display: flex;
+    background: transparent !important;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
-    padding-top: 1.5px;
-    margin-bottom: 1px;
+    cursor: pointer;
+    box-shadow: none !important;
+    outline: none !important;
+    transition: none !important;
 }
 
-.addTaskBtn:hover {
-    background: #f0f0f0;
-    color: #111;
+.addTaskIcon {
+    width: 20px;
+    height: 20px;
+    display: block;
+    object-fit: contain;
+    pointer-events: none;
+    filter: brightness(0) invert(1) !important; /* Forces pure white icon */
+    transition: none !important;
 }
 
-.addTaskBtn, 
+/* Remove hover effects on plus button */
+.addTaskBtn:hover,
+.addTaskBtn:active,
+.addTaskBtn:focus,
+.addTaskBtn:hover .addTaskIcon,
+.addTaskBtn:focus .addTaskIcon,
+.addTaskBtn:active .addTaskIcon {
+    background: transparent !important;
+    background-color: transparent !important;
+    filter: brightness(0) invert(1) !important;
+    transform: none !important;
+    opacity: 1 !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
 .deleteTask, 
 .cross-icon {
     display: inline-flex;
@@ -283,13 +304,26 @@ body:not(.dark) .card-header {
     border-radius: 8px;
     background: rgba(0, 0, 0, 0.02);
     animation: fadeIn .25s ease;
+    gap: 10px;
+    touch-action: manipulation;
+    -webkit-user-select: text;
+    user-select: text;
+    cursor: text;
+}
+
+.checkbox-wrapper {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .task label {
     display: flex;
     align-items: center;
     gap: 10px;
-    flex: 0.15;
+    flex: none;
     cursor: pointer;
 }
 
@@ -332,16 +366,11 @@ body:not(.dark) .card-header {
     line-height: 1.4;
     color: var(--text);
     word-break: break-word;
+    white-space: pre-wrap;
     caret-color: var(--button);
+    text-transform: capitalize;
 }
 
-.taskText::first-letter {
-    text-transform: uppercase;
-}
-#notesArea::first-letter,
-textarea::first-letter {
-    text-transform: uppercase;
-}
 .taskText:empty::before {
     content: "New Task";
     color: #a8a8a8;
@@ -412,6 +441,7 @@ textarea::placeholder {
     overflow: hidden;
     background: #3f3f3c;
     padding: 0;
+    transition: background 0.35s ease;
 }
 
 .theme-switch .switch-thumb {
@@ -420,17 +450,29 @@ textarea::placeholder {
     top: 4px;
     width: 24px;
     height: 24px;
-    background: white;
+    background: #2b2e3a;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: .35s cubic-bezier(.4, 0, .2, 1);
+    transition: transform 0.35s cubic-bezier(.4, 0, .2, 1), background 0.35s ease;
 }
 
 #themeIcon {
-    font-size: 13px;
-    transform:translate(0.7px,-0.6px);
+    width: 15px;
+    height: 15px;
+    display: block;
+    object-fit: contain;
+    pointer-events: none;
+    transition: opacity 0.25s ease, filter 0.25s ease;
+}
+
+body:not(.dark) #themeIcon {
+    filter: invert(1);
+}
+
+body.dark #themeIcon {
+    filter: none;
 }
 
 body:not(.dark) .theme-switch {
@@ -439,10 +481,12 @@ body:not(.dark) .theme-switch {
 
 body:not(.dark) .theme-switch .switch-thumb {
     transform: translateX(28px);
+    background: #ffffff;
 }
 
 body.dark .theme-switch .switch-thumb {
     transform: translateX(0);
+    background: #1a1d24;
 }
 
 body:not(.dark) .deleteTask:hover{
@@ -521,52 +565,7 @@ header .brand {
     object-fit: contain;
 }
 
-/* ==========================================================
-   DESKTOP & TABLET: SLIDER SWITCH STYLE
-========================================================== */
 
-.theme-switch {
-    width: 60px;
-    height: 32px;
-    border: none;
-    border-radius: 999px;
-    position: relative;
-    cursor: pointer;
-    overflow: hidden;
-    background: #3f3f3c;
-    padding: 0;
-}
-
-.theme-switch .switch-thumb {
-    position: absolute;
-    left: 4px;
-    top: 4px;
-    width: 24px;
-    height: 24px;
-    background: white;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.35s cubic-bezier(.4, 0, .2, 1);
-}
-
-#themeIcon {
-    font-size: 13px;
-}
-
-/* Slider state positioning (Desktop/Tablet) */
-body:not(.dark) .theme-switch {
-    background: #ececec;
-}
-
-body:not(.dark) .theme-switch .switch-thumb {
-    transform: translateX(28px);
-}
-
-body.dark .theme-switch .switch-thumb {
-    transform: translateX(0);
-}
 /* ==========================================================
    RESPONSIVE SCROLLING FOR TABLETS & PHONES
 ========================================================== */
@@ -600,21 +599,12 @@ body.dark .theme-switch .switch-thumb {
 }
 
 /* Mobile Phone Optimization (768px and smaller) */
-@media (max-width: 768px) {
-    html, body {
-        overflow-x: hidden;
-        overflow-y: auto; /* Enables full page scrolling */
-        height: auto;
-    }
-        .header-logo {
-        width: 24px;
-        height: 24px;
-    }
-    header h1{
-        font-size: 1.1rem;
-    }
+/* ==========================================================
+   RESPONSIVE LAYOUTS
+========================================================== */
 
-    /* Transform slider frame into a round icon button */
+/* Mobile & Tablet Header Controls (< 768px) */
+@media (max-width: 768px) {
     .theme-switch {
         width: 38px;
         height: 38px;
@@ -626,58 +616,104 @@ body.dark .theme-switch .switch-thumb {
         align-items: center;
     }
 
-    /* Disable slider movement and center the thumb icon */
-    .theme-switch .switch-thumb {
-        position: static;
-        width: auto;
-        height: auto;
-        background: transparent;
-        transform: none !important; /* Overrides slider offset */
+    body:not(.dark) .theme-switch {
+        background: #eef1f6;
+        border-color: #d0d4dc;
     }
 
-    #themeIcon {
-        font-size: 1.15rem;
-        padding-left: 0.5px;
-        padding-bottom: 1px;
-    }
-
-    /* Mobile dark mode button background */
     body.dark .theme-switch {
         background: #2a2e39;
         border-color: #3f4452;
     }
 
-    .planner {
+    .theme-switch .switch-thumb {
+        position: static;
+        width: 100%;
+        height: 100%;
+        background: transparent !important;
+        transform: none !important;
         display: flex;
-        flex-direction: column; /* Stacks all 8 boxes vertically in 1 column */
-        gap: 14px;
-        padding: 14px;
-        overflow: visible;
-        height: auto;
+        justify-content: center;
+        align-items: center;
     }
 
-    .card {
-        min-height: 220px;
-        border-radius: 14px;
-    }
-
-    .taskContainer {
-        max-height: 250px; /* Scrolls internally if a single box has many tasks */
+    #themeIcon {
+        width: 18px;
+        height: 18px;
+        display: block;
+        object-fit: contain;
     }
 }
 
-/* ==========================================================
-   DISABLE ALL HOVER EFFECTS ON PHONES & TABLETS
-========================================================== */
+/* Tablet & Mobile L Optimization (425px to 1100px) - 2 COLUMNS */
+@media (max-width: 1100px) and (min-width: 425px) {
+    html, body {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: auto;
+    }
 
-/* Target touch devices where hover isn't supported or natural */
+    .planner,
+    main {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important; /* 2 columns for Mobile L & Tablets */
+        gap: 12px !important;
+        padding: 12px !important;
+        overflow: visible !important;
+        height: auto !important;
+    }
+
+    .card {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        min-height: 220px !important;
+        border-radius: 14px !important;
+    }
+}
+
+/* Small Mobile S & M Optimization (< 425px) - 1 COLUMN */
+@media (max-width: 424px) {
+    html, body {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: auto;
+    }
+
+    header {
+        padding: 8px 12px;
+    }
+
+    header h1 {
+        font-size: 1.1rem;
+    }
+
+    .planner,
+    main {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 12px !important;
+        padding: 10px 8px !important;
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+
+    .card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        min-height: 200px !important;
+        border-radius: 14px !important;
+    }
+}
+
+/* Disable hover effects on touch devices */
 @media (hover: none), (max-width: 1024px) {
-    
-    /* Disable transform shifts, scaling, and hover shadows on cards & tasks */
     .card:hover,
     .task:hover,
     .theme-switch:hover,
-    .addTaskBtn:hover,
     .paletteBtn:hover,
     #clearWeek:hover,
     button:hover {
@@ -685,60 +721,8 @@ body.dark .theme-switch .switch-thumb {
         box-shadow: none !important;
         filter: none !important;
     }
-    
 
-    /* Keep backgrounds stable on hover for interactive elements */
     .task:hover {
         background-color: var(--task-bg, inherit) !important;
-    }
-
-    /* button:hover,
-    .addTaskBtn:hover,
-    .paletteBtn:hover {
-        background-color: inherit;
-        opacity: 1;
-    } */
-
-    /* Disable hover state background highlights on table rows/items */
-    tr:hover,
-    td:hover,
-    .taskContainer:hover {
-        background-color: transparent !important;
-    }
-}
-
-/* ==========================================================
-   2-COLUMN GRID AT 768px (TABLETS & PHONES)
-========================================================== */
-
-@media (max-width: 768px) {
-    /* Main container holding the daily cards */
-    .planner-grid, 
-    .cards-container, 
-    main {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important; /* Forces exactly 2 cards per row */
-        gap: 12px !important;
-        padding: 10px !important;
-    }
-
-    /* Full-width cards (like Weekly Goals or Notes) can span both columns if needed */
-    .card.full-width {
-        grid-column: span 2;
-    }
-
-    /* Adjust card margins so grid handles spacing cleanly */
-    .card {
-        width: 100% !important;
-        margin: 0 !important;
-    }
-}
-
-/* Optional: Switch to 1 column on extremely small screens under 480px */
-@media (max-width: 480px) {
-    .planner-grid, 
-    .cards-container, 
-    main {
-        grid-template-columns: 1fr !important; /* Single column for very narrow phones */
     }
 }

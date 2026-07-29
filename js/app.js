@@ -42,10 +42,19 @@ const notes = document.getElementById("notes");
 
 /* ========================================= */
 
+function updateThemeIcon() {
+    const themeIcon = document.getElementById("themeIcon");
+    if (!themeIcon) return;
+    const isDark = document.body.classList.contains("dark");
+    themeIcon.src = isDark ? "icons/dark mode.png" : "icons/light mode.png";
+    themeIcon.alt = isDark ? "Dark Mode" : "Light Mode";
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     loadPlanner();
     initializeTextAreas();
     initializeButtons();
+    updateThemeIcon();
 });
 
 /* ========================================= */
@@ -144,15 +153,25 @@ function createTask(day, text = "", completed = false) {
 
     /* Deactivate edit mode when pressing Enter or Escape */
     taskText.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
+        if (e.key === "Enter" || e.key === "Escape") {
             e.preventDefault();
             taskText.blur(); // Unfocus text editing
-            createTask(day); // Create next task
-        } else if (e.key === "Escape") {
-            taskText.blur();
         }
     });
-
+/* --------------------------------------------------
+       2. EDITABLE TEXT INPUT & AUTO-SAVE
+    -------------------------------------------------- */
+    taskText.addEventListener("input", () => {
+        // Save state directly without re-rendering or resetting selection
+        plannerData.days[day] = Array.from(
+            container.querySelectorAll(".task")
+        ).map(t => ({
+            text: t.querySelector(".taskText").textContent,
+            completed: t.querySelector(".taskCheck").checked
+        }));
+        
+        savePlanner();
+    });
     /* --------------------------------------------------
        3. CLICK TASK ROW TO DEACTIVATE EDITING
     -------------------------------------------------- */
@@ -180,7 +199,6 @@ function createTask(day, text = "", completed = false) {
    5. GLOBAL CONTAINER CLICK DEACTIVATION
    Clicking empty space in task box un-focuses editing
 -------------------------------------------------- */
-    // FIX: Auto-scroll container to bottom and focus without snapping window top
     container.scrollTo({
         top: container.scrollHeight,
         behavior: "smooth"
@@ -188,8 +206,7 @@ function createTask(day, text = "", completed = false) {
 
     setTimeout(() => {
         taskText.focus({ preventScroll: true });
-    }, 10);
-
+    }, 50);
     updateStorage(day);
 }
 
@@ -441,14 +458,7 @@ const themeToggle = document.getElementById("themeToggle");
 const themeText = document.getElementById("themeText");
 const themeIcon = document.getElementById("themeIcon");
 
-if (themeIcon) {
-
-    themeIcon.textContent =
-        document.body.classList.contains("dark")
-            ? "🌙"
-            : "☀️";
-
-}
+updateThemeIcon();
 
 if (themeToggle) {
     themeToggle.addEventListener("click", () => {
@@ -456,9 +466,7 @@ if (themeToggle) {
 
         plannerData.darkMode = document.body.classList.contains("dark");
 
-        if (themeIcon) {
-            themeIcon.textContent = plannerData.darkMode ? "🌙" : "☀️";
-        }
+        updateThemeIcon();
         
         localStorage.setItem(
             "theme",
@@ -466,7 +474,6 @@ if (themeToggle) {
         );
         savePlanner();
     });
-    
 }
 
 /* =========================================
@@ -474,22 +481,24 @@ if (themeToggle) {
 ========================================= */
 
 document.addEventListener("click", e => {
-    // FIX: Removed leading dot from classList check
-    if (!e.target.classList.contains("addTaskBtn")) return;
+    const btn = e.target.closest(".addTaskBtn");
+    if (!btn) return;
 
-    const card = e.target.closest(".card");
+    const card = btn.closest(".card");
+    if (!card) return;
 
     setTimeout(() => {
         const tasks = card.querySelectorAll(".taskText");
         const container = card.querySelector(".taskContainer");
 
-        if (tasks.length) {
-            if (container) {
-                container.scrollTo({
-                    top: container.scrollHeight,
-                    behavior: "smooth"
-                });
-            }
+        if (container) {
+            container.scrollTo({
+                top: container.scrollHeight,
+                behavior: "smooth"
+            });
+        }
+        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || window.matchMedia("(pointer: coarse)").matches;
+        if (!isTouchDevice && tasks.length) {
             tasks[tasks.length - 1].focus({ preventScroll: true });
         }
     }, 20);
@@ -559,11 +568,10 @@ function reloadPlanner() {
 
     if (plannerData.darkMode) {
         document.body.classList.add("dark");
-        if (themeToggle) themeToggle.textContent = "Light Mode";
     } else {
         document.body.classList.remove("dark");
-        if (themeToggle) themeToggle.textContent = "🌙 Dark Mode";
     }
+    updateThemeIcon();
 }
 
 /* =========================================
@@ -679,16 +687,7 @@ function showToast(message) {
     }, 1800);
 }
 
-/* =========================================
-   DOUBLE CLICK TO ADD TASK
-========================================= */
 
-document.querySelectorAll(".taskContainer").forEach(container => {
-    container.addEventListener("dblclick", () => {
-        const day = container.closest(".card").id;
-        createTask(day);
-    });
-});
 
 /* =========================================
    ESCAPE TO BLUR TASK
