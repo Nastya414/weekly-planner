@@ -203,12 +203,27 @@ function createTask(day, text = "", completed = false) {
         top: container.scrollHeight,
         behavior: "smooth"
     });
-    taskText.focus();
+    
 
     setTimeout(() => {
         taskText.focus({ preventScroll: true });
     }, 50);
+    focusTaskForSafari(taskText);
     updateStorage(day);
+}
+
+function focusTaskForSafari(el) {
+    el.focus();
+    
+    // Explicitly place cursor at the end for WebKit
+    if (window.getSelection && document.createRange) {
+        const range = document.createRange();
+        const sel = window.getSelection();
+        range.selectNodeContents(el);
+        range.collapse(false); // collapse to end
+        sel.removeAllRanges();
+        sel.addRange(range);
+    }
 }
 
 document.addEventListener("click", (e) => {
