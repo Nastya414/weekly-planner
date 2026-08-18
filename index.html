@@ -23,12 +23,19 @@
         </div>
 
         <div class="toolbar">
-            <!-- Theme toggle element -->
+            <!-- Google Sign-In Button
+            <button id="googleSignInBtn" class="google-btn" type="button" title="Sign in with Google">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
+                <span id="googleBtnText" class="google-btn-text">Sign in</span>
+            </button> -->
+
+            <!-- Theme Toggle -->
             <button id="themeToggle" class="theme-switch" aria-label="Toggle Theme">
                 <div class="switch-thumb">
                     <img id="themeIcon" src="icons/dark mode.png" alt="Theme Icon" class="theme-icon-img">
                 </div>
             </button>
+
             <button id="clearWeek">Clear</button>
         </div>
     </header>
@@ -155,12 +162,12 @@
         </section>
 
         <!-- Notes -->
-        <section class="card" id="notes">
+        <section class="card" id="notesCard">
             <div class="card-header">
                 <span>Notes</span>
                 <div class="colorMenu">
                     <button class="paletteBtn" type="button" title="Choose header color">⋮</button>
-                    <input class="colorPicker" type="color" data-card="notes" value="#8e7e3e">
+                    <input class="colorPicker" type="color" data-card="notesCard" value="#8e7e3e">
                 </div>
             </div>
             <textarea id="notesArea" placeholder="Write notes here..."></textarea>
@@ -169,21 +176,15 @@
     </main>
 
     <!-- Template for Tasks -->
-<template id="taskTemplate">
-    <div class="task" draggable="true">
-        <!-- Separate label for ONLY the checkbox -->
-        <label class="checkbox-wrapper">
-            <input type="checkbox" class="taskCheck">
-        </label>
-        
-        <!-- Editable text sits OUTSIDE the label -->
-        <span class="taskText" contenteditable="true"></span>
-
-        <!-- Delete button -->
-        <button class="deleteTask" title="Delete Task" aria-label="Delete Task">✖</button>
-    </div>
-</template>
-
+    <template id="taskTemplate">
+        <div class="task" draggable="true">
+            <label class="checkbox-wrapper">
+                <input type="checkbox" class="taskCheck">
+            </label>
+            <span class="taskText" contenteditable="true"></span>
+            <button class="deleteTask" title="Delete Task" aria-label="Delete Task">✖</button>
+        </div>
+    </template>
     <script src="js/app.js"></script>
 </body>
 
